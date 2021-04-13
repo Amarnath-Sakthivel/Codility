@@ -1,0 +1,39 @@
+import java.util.*;
+class Solution
+{
+    public String solution(String c1, String s1){
+        {
+            String[] str=s1.split(";");
+            StringJoiner joiner=new StringJoiner("; ");
+            int len=str.length;
+            String[] s=new String[len];
+            for(int i=0;i<len;i++){
+                String[] sp=str[i].toLowerCase().split(" ");
+                if(sp[sp.length-1].length()<8){
+                    s[i]=sp[0]+"."+sp[sp.length-1];
+                }
+                else{
+                    sp[sp.length-1]=sp[sp.length-1].replace("-","");
+                    sp[sp.length-1]=sp[sp.length-1].substring(0,8);
+                    s[i]=sp[0]+"."+sp[sp.length-1];
+                }
+            }
+            for(int i=0;i<len;i++){
+                int count=1;
+                for(int j=0;j<len;j++){
+                    if(i!=j && s[i].equals(s[j])){
+                        s[j]=s[j]+ ++count;
+                    }
+                }
+                joiner.add(str[i]+" <"+s[i]+"@"+c1.toLowerCase()+".com>");
+            }
+            return joiner.toString().trim()+".";
+            
+        }
+    }
+
+    public static void main(String[] args){
+        Solution sol=new Solution();
+        System.out.println(sol.solution("Example", "John Doe;Peter Benjamin Parker;Mary Jane Watson-Parker;John Elvis Doe;John Evan Doe;Jane Doe;Peter Brian Parker"));
+    }
+}
